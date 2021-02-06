@@ -1,0 +1,129 @@
+Prediction using Supervised ML (Level - Beginner)
+Linear Regression with Python Scikit Learn
+In this section we will see how the Python Scikit-Learn library for machine learning can be used to implement regression functions. We will start with simple linear regression involving two variables.
+
+Linear Regression with Python Scikit Learn
+In this section we will see how the Python Scikit-Learn library for machine learning can be used to implement regression functions. We will start with simple linear regression involving two variables.
+
+Problem statement
+In this regression task we will predict the percentage of marks that a student is expected to score based upon the number of hours they studied. This is a simple linear regression task as it involves just two variables.
+
+To predict:
+What will be predicted score if a student studies for 9.25 hrs/ day?
+
+
+>>> import pandas as pd
+>>> import numpy as np
+>>>
+>>> import lux # new data visualization library
+>>>
+>>> import matplotlib.pyplot as plt
+>>> from sklearn.model_selection import train_test_split
+>>> from sklearn.linear_model import LinearRegression
+>>> path = r"C:\Users\Admin\Downloads\JS tutorials\cv\fily.txt"
+>>> s_data = pd.read_csv(path)
+>>> s_data.head()
+   Hours  Scores
+0    2.5      21
+1    5.1      47
+2    3.2      27
+3    8.5      75
+4    3.5      30
+>>> s_data # press toggle button to view the graph
+    Hours  Scores
+0     2.5      21
+1     5.1      47
+2     3.2      27
+3     8.5      75
+4     3.5      30
+5     1.5      20
+6     9.2      88
+7     5.5      60
+8     8.3      81
+9     2.7      25
+10    7.7      85
+11    5.9      62
+12    4.5      41
+13    3.3      42
+14    1.1      17
+15    8.9      95
+16    2.5      30
+17    1.9      24
+18    6.1      67
+19    7.4      69
+20    2.7      30
+21    4.8      54
+22    3.8      35
+23    6.9      76
+24    7.8      86
+>>> s_data.columns
+Index(['Hours', 'Scores'], dtype='object')
+>>>
+>>> s_data.columns
+Index(['Hours', 'Scores'], dtype='object')
+>>> s_data.shape
+(25, 2)
+>>> train,test = train_test_split(s_data,test_size=0.25,random_state=123)
+>>> train.shape
+(18, 2)
+>>> test.shape
+(7, 2)
+>>> train_x=train.drop("Scores",axis=1)
+>>> train_y=train["Scores"]
+>>> test_x=test.drop("Scores",axis=1)
+>>> test_y=test["Scores"]
+>>> lr=LinearRegression()
+>>> lr.fit(train_x,train_y)
+LinearRegression()
+>>> lr.coef_
+array([9.61718609])
+>>> lr.intercept_
+2.448617866650636
+>>> line = lr.coef_*train_x+lr.intercept_
+>>>
+>>> # Plotting for the test data
+>>> plt.scatter(train_x,train_y)
+<matplotlib.collections.PathCollection object at 0x000001517DC79340>
+>>> plt.plot(train_x, line);
+[<matplotlib.lines.Line2D object at 0x000001517DC79820>]
+>>> plt.show()
+
+>>> pr=lr.predict(test_x)
+
+>>> list(zip(test_y,pr))
+[(20, 16.874397005544534),
+ (54, 48.61111111111111),
+ (35, 38.99392501851517),
+ (67, 61.11345303148581),
+ (95, 88.04157409075442),
+ (81, 82.27126243519687),
+ (60, 55.343141375928255)]
+
+>>> from sklearn.metrics import mean_squared_error
+>>> mean_squared_error(test_y,pr,squared=False)
+4.797834650875306
+
+>>> hour =[9.25]
+>>> own_pr=lr.predict([hour])
+>>> print("No of Hours = {}".format([hour]))
+>>> print("Predicted Score = {}".format(own_pr[0]))
+
+No of Hours = [[9.25]]
+Predicted Score = 91.407589223163
+
+Predicted Score = 91.407589223163
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
